@@ -1,0 +1,8 @@
+name: FemtoShell.c
+Description: 
+             This is a program that executes any linux command such as ls , pwd , env ,....
+             And do some special command: 
+                                         1- set : that show all the local variables
+                                         2- export : that take variable name to put in enviroment variables
+                                         3- add variable (variable_name=value): add new local variable by write variable_name 
+                                            follow by equal sign follow by value  
