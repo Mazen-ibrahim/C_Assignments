@@ -38,6 +38,7 @@ void parse(char input[], char *output[],char delim[])
 		ptr = strtok(NULL, delim);
 		k++;
 	}
+	output[k]=NULL;
 
 }
 
@@ -101,41 +102,12 @@ int main()
          if( strlen(Buf) == 0 )
 	      continue;
              
-	
-	 //Export code section 
-	 //---------------------------------------------------------------------------------------------------------
-         
-	    Export = checkExport(Buf);
 
-	 if ( Export == 1 )
-	 {  
-            char found = 0;
-	    char success = -1;
-            parse(Buf,output," ");
-	    for(int i = 0 ;i<counter_variables; i++)
-	     {
-		 if ( strcmp(output[1] , variables[i].name) == 0 )
-	            {
-		       found = 1;
-                       success = setenv(variables[i].name,variables[i].value,1); 
-		       if( success == 1 )
-			       printf("Variable set to enviroment variables\n");
-
-		        break;	       
-		    }	    
-	     }
-
-	   if(found == 0)
-	       printf("Variable not found\n");	   
-           
-            continue;	   
-	 }
-
-         //----------------------------------------------------------------------------------------------------------
 
 
 	 //Set command code section
-	 //-----------------------------------------------------------------------------------------------------------
+      	 //-----------------------------------------------------------------------------------------------------------
+	
 	 if( strcmp(Buf,"set") == 0 )
          {
              
@@ -149,6 +121,37 @@ int main()
          
          //-----------------------------------------------------------------------------------------------------------
 
+
+         //Export code section 
+         //---------------------------------------------------------------------------------------------------------
+
+            Export = checkExport(Buf);
+
+         if ( Export == 1 )
+         {
+            char found = 0;
+            char success = -1;
+            parse(Buf,output," ");
+            for(int i = 0 ;i<counter_variables; i++)
+             {
+                  if ( strcmp(output[1] , variables[i].name) == 0 )
+                    {
+                       found = 1;
+                       success = setenv(variables[i].name,variables[i].value,1);
+                       if( success == 1 )
+                               printf("Variable set to enviroment variables\n");
+
+                        break;
+                    }
+             }
+
+           if(found == 0)
+               printf("Variable not found\n");
+
+            continue;
+         }
+
+         //----------------------------------------------------------------------------------------------------------
 
          
 	 //Add variable code section
